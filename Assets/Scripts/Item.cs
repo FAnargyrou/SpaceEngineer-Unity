@@ -1,24 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Item : MonoBehaviour
+
+[CreateAssetMenu(fileName = "Tool", menuName = "Inventory/Item")]
+public class Item : ScriptableObject
 {
-    public enum Items
-    {
-        Screwdriver,
-        Wrench,
-        Drill
-    };
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    Sprite icon;
 
-    // Update is called once per frame
-    void Update()
+    public Sprite GetIcon()
     {
-        
+        return icon;
     }
 }

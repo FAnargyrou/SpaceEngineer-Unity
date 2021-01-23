@@ -7,13 +7,20 @@ public class Player : MonoBehaviour
     public float movementSpeed = 2f;
     public float interactRadius = 5f;
     public LayerMask shipComponentsMasks;
+    public Inventory inventory;
 
     Rigidbody2D rb;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        if (!rb)
+            Debug.LogWarning($"{name} does not have a RigidBody2D component");
+        if (!animator)
+            Debug.LogWarning($"{name} does not have an Animator component");
     }
 
     void Update()
@@ -31,11 +38,21 @@ public class Player : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal") * movementSpeed;
         movement.y = Input.GetAxis("Vertical") * movementSpeed;
         rb.velocity = new Vector2(movement.x, movement.y);
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.magnitude);
+
+        if (movement.x != 0f)
+        {
+            int direction = movement.x < 0f ? 0 : 1;
+            animator.SetInteger("Direction", direction);
+        }
     }
 
     void Interact()
     {
-        Collider2D hitComponent = Physics2D.OverlapCircle(transform.position, interactRadius);
+        Collider2D hitComponent = Physics2D.OverlapCircle(transform.position, interactRadius, shipComponentsMasks);
 
         if (hitComponent == null) return;
 
