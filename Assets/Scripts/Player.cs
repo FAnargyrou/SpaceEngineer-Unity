@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     ShipComponent focus;
     bool gravity = true;
     bool o2Active = true;
-    [HideInInspector]
-    public float o2Current = 0f;
+    [HideInInspector] public float o2Current = 0f;
+    public int o2Multiplier = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(o2Current);
+
         if (Input.GetButtonDown("Fire1"))
         {
             Interact();
@@ -64,7 +66,8 @@ public class Player : MonoBehaviour
 
         if (!o2Active)
         {
-            o2Current -= Time.deltaTime;
+            Debug.Log($"Multiplier = {1 * o2Multiplier * Time.deltaTime}");
+            o2Current -= 1 * o2Multiplier * Time.deltaTime;
         }
     }
 
@@ -124,6 +127,8 @@ public class Player : MonoBehaviour
 
     public void ToggleO2(bool toggle)
     {
+        if (!toggle)
+            o2Multiplier++;
         o2Active = toggle;
     }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4320856749032061150}
   - component: {fileID: 4320856749032061148}
   - component: {fileID: 4320856749032061151}
-  - component: {fileID: 4320856749032061144}
+  - component: {fileID: 2983418112196565764}
   m_Layer: 8
   m_Name: O2 Component
   m_TagString: Untagged
@@ -132,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4320856749032061144
+--- !u!114 &2983418112196565764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,11 +141,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4320856749032061149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a5d34e9e3d007469d42d8ff6f951aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d7e145791f1cc24c8f8e746586550a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 30
-  componentName: O2 Component
+  timer: 0
+  componentName: 
   requiredItem: {fileID: 11400000, guid: 59d947453274b2c439eda3c8ec1d70ed, type: 2}
-  fixRequired: 50
-  brokenSprite: {fileID: -1762573714345474896, guid: eb51198e529bf9c4482d6a03674384f2, type: 3}
+  fixRequired: 30
+  collidable: 1
+  brokenSprite: {fileID: 0}

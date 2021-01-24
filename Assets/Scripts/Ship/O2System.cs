@@ -25,7 +25,7 @@ public class O2System : BreakableComponent
 
     public override string GetDescription()
     {
-        throw new System.NotImplementedException();
+        return "O2 Flow is clogged; New filter required";
     }
 
 }

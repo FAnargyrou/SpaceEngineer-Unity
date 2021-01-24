@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b06f040d4b8384597774023d449605, type: 3}
   m_Name: ToolboxInventory
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 1430cf538b54e4d4b86cee930cbf0dbc, type: 2}
-  - {fileID: 11400000, guid: fa83786426086ae4384fb79e21aa0baa, type: 2}
-  - {fileID: 11400000, guid: c815845b6d6c785439a7e4ae9003b82d, type: 2}
-  - {fileID: 11400000, guid: 8ddae77b9b9ed4d46a314e1c8463d0bf, type: 2}
-  space: 4
+  items: []
+  space: 5
   deposit: {fileID: 11400000, guid: 5199cf087fbe880418915ee60505b0fa, type: 2}
