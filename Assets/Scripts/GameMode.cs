@@ -51,6 +51,9 @@ public class GameMode : MonoBehaviour
                     GenerateRandomEvent();
                 nextEventTimer = Random.Range(minEventTimer, maxEventTimer);
             }
+
+            if (player.o2Current <= 0f)
+                GameOver();
         }
     }
 
@@ -75,10 +78,15 @@ public class GameMode : MonoBehaviour
         shieldActive = toggle;
     }
 
+    public void ToggleO2(bool toggle)
+    {
+        player.ToggleO2(toggle);
+    }
+
     public void GameOver()
     {
         gameOver = true;
-        // Change player movement to 0 to prevent movement
+        // Change player movementSpeed to 0 to prevent input when game is over
         player.movementSpeed = 0f;
         gameOverPanel.SetActive(true);
         Debug.Log(timeStarted);

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public float movementSpeed = 2f;
     public float interactRadius = 5f;
+    public float o2TotalCapacity = 100f;
     public LayerMask shipComponentsMasks;
     public Inventory inventory;
     public ProgressBar progressBar;
@@ -14,6 +15,9 @@ public class Player : MonoBehaviour
     Animator animator;
     ShipComponent focus;
     bool gravity = true;
+    bool o2Active = true;
+    [HideInInspector]
+    public float o2Current = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour
         if (!animator)
             Debug.LogWarning($"{name} does not have an Animator component");
         progressBar.gameObject.SetActive(false);
+        o2Current = o2TotalCapacity;
     }
 
     void Update()
@@ -55,6 +60,11 @@ public class Player : MonoBehaviour
                 focus.Cancel();
                 focus = null;
             }
+        }
+
+        if (!o2Active)
+        {
+            o2Current -= Time.deltaTime;
         }
     }
 
@@ -110,6 +120,11 @@ public class Player : MonoBehaviour
     public void ToggleGravity(bool toggle)
     {
         gravity = toggle;
+    }
+
+    public void ToggleO2(bool toggle)
+    {
+        o2Active = toggle;
     }
 
     private void OnDrawGizmosSelected()
