@@ -58,7 +58,6 @@ public class InventoryHUD : MonoBehaviour
 
     public void ToggleButtons(bool toggle)
     {
-        Debug.Log(slots.Length);
         for (int i = 0; i < slots.Length; ++i)
         {
             if (i < inventory.items.Count)

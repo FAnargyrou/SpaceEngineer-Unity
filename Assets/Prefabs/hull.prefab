@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   componentName: Broken Hull
+  interactSound: Drill
+  eventSound: Hull
   requiredItem: {fileID: 11400000, guid: 1430cf538b54e4d4b86cee930cbf0dbc, type: 2}
   fixRequired: 25
   collidable: 0

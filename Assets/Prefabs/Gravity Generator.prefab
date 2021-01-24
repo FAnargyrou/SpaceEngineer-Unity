@@ -207,6 +207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   componentName: Gravity Generator
+  interactSound: Wrench
+  eventSound: Gravity
   requiredItem: {fileID: 11400000, guid: 8ddae77b9b9ed4d46a314e1c8463d0bf, type: 2}
   fixRequired: 100
   collidable: 1

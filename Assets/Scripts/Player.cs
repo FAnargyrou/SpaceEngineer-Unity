@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public LayerMask shipComponentsMasks;
     public Inventory inventory;
     public ProgressBar progressBar;
+    public ProgressBar o2Bar;
 
     Rigidbody2D rb;
     Animator animator;
@@ -17,7 +18,12 @@ public class Player : MonoBehaviour
     bool gravity = true;
     bool o2Active = true;
     [HideInInspector] public float o2Current = 0f;
-    public int o2Multiplier = 0;
+    int o2Multiplier = 0;
+
+    bool playingWalkingSound;
+
+    AudioManager audioManager;
+    GameMode gameMode;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +36,38 @@ public class Player : MonoBehaviour
             Debug.LogWarning($"{name} does not have an Animator component");
         progressBar.gameObject.SetActive(false);
         o2Current = o2TotalCapacity;
+
+        audioManager = FindObjectOfType<AudioManager>();
+        if (!audioManager)
+            Debug.LogWarning("Audio Manager not found!!!");
+        gameMode = FindObjectOfType<GameMode>();
+        if (!gameMode)
+            Debug.LogWarning("Game Mode not found!!! Game will NOT function properly.");
     }
 
     void Update()
     {
-        Debug.Log(o2Current);
+        if (Input.GetButtonDown("Fire2"))
+        {
+            gameMode.PauseGame();
+            rb.velocity = Vector2.zero;
+            if (playingWalkingSound)
+            {
+                audioManager.Stop("PlayerSteps");
+                playingWalkingSound = false;
+            }
+        }
+        if (!PauseMenu.isGamePaused) UpdatePlayer();
+    }
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!PauseMenu.isGamePaused) UpdateMovement();
+    }
+
+    void UpdatePlayer()
+    {
         if (Input.GetButtonDown("Fire1"))
         {
             Interact();
@@ -66,22 +98,40 @@ public class Player : MonoBehaviour
 
         if (!o2Active)
         {
-            Debug.Log($"Multiplier = {1 * o2Multiplier * Time.deltaTime}");
-            o2Current -= 1 * o2Multiplier * Time.deltaTime;
+            o2Current -= o2Multiplier * Time.deltaTime;
         }
+        o2Bar.SetProgress(o2Current / o2TotalCapacity);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void UpdateMovement()
     {
         Vector2 movement;
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
-            
+
         if (gravity)
-            rb.velocity = new Vector2(movement.x * movementSpeed, movement.y * movementSpeed);
-        else
         {
+            rb.velocity = new Vector2(movement.x * movementSpeed, movement.y * movementSpeed);
+            if (rb.velocity.magnitude > 0f && audioManager && !playingWalkingSound)
+            {
+                audioManager.Play("PlayerSteps");
+                playingWalkingSound = true;
+            }
+            else if (rb.velocity.magnitude <= 0f && audioManager && playingWalkingSound)
+            {
+                audioManager.Stop("PlayerSteps");
+                playingWalkingSound = false;
+            }
+
+        }
+        else if (!gravity)
+        {
+            if (playingWalkingSound)
+            {
+                audioManager.Stop("PlayerSteps");
+                playingWalkingSound = false;
+            }
+
             Vector2 currentVelocity = rb.velocity;
             currentVelocity.x += Time.deltaTime * movement.x;
             currentVelocity.y += Time.deltaTime * movement.y;
@@ -127,9 +177,17 @@ public class Player : MonoBehaviour
 
     public void ToggleO2(bool toggle)
     {
-        if (!toggle)
-            o2Multiplier++;
         o2Active = toggle;
+    }
+    
+    public void SetO2Multiplier(int multiplier)
+    {
+        o2Multiplier = multiplier;
+    }
+
+    public void RefillO2()
+    {
+        o2Current = o2TotalCapacity;
     }
 
     private void OnDrawGizmosSelected()

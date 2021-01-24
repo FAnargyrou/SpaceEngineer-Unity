@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BreakableComponent : ShipComponent
 {
     protected bool active;
-    bool isFixing;
+    protected bool isFixing;
 
     public float fixRequired = 100f;
     // Some ship components should allow the player to walk over them if not broken (ie. Hull/Floor)
@@ -29,7 +29,6 @@ public abstract class BreakableComponent : ShipComponent
         {
             if (isFixing)
             {
-                Debug.Log(fixProgress);
                 fixProgress = Mathf.Clamp(fixProgress + Time.deltaTime * 10f, 0f, fixRequired);
                 if (fixProgress >= fixRequired)
                 {
@@ -53,6 +52,7 @@ public abstract class BreakableComponent : ShipComponent
             if (!collidable)
                 GetComponent<BoxCollider2D>().enabled = true;
         }
+        PlaySound(eventSound);
     }
 
     public virtual void DisableEvent()
@@ -83,8 +83,13 @@ public abstract class BreakableComponent : ShipComponent
 
     public override void Interact()
     {
-        if (gameMode.playerInventory.items.Contains(requiredItem))
+        Debug.Log("interacting with " + componentName);
+        if (gameMode.playerInventory.items.Contains(requiredItem) && active)
+        {
             isFixing = true;
+            Debug.Log(interactSound);
+            PlaySound(interactSound);
+        }
     }
 
     public abstract string GetDescription();

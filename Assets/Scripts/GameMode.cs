@@ -1,13 +1,16 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameMode : MonoBehaviour
 {
     public Inventory playerInventory;
     public Inventory toolboxInventory;
     public Player player;
+    public GameObject playerHud;
     public GameObject gameOverPanel;
-    public Text result;
+    public TMP_Text result;
+    public AudioManager audioManager;
+    public PauseMenu pauseMenu;
 
     public Item[] items;
     public float minEventTimer = 5f;
@@ -17,6 +20,9 @@ public class GameMode : MonoBehaviour
     BreakableComponent[] shipComponents;
     bool gameOver = false;
     bool shieldActive = true;
+
+    public int hullMaxIntegrity = 5;
+    int hullCurrentIntegrity;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +42,20 @@ public class GameMode : MonoBehaviour
         {
             toolboxInventory.Add(item);
         }
+
+        if (audioManager)
+            audioManager.Play("Background");
+
+        hullCurrentIntegrity = hullMaxIntegrity;
+
+        PauseMenu.isGamePaused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver)
+
+        if (!gameOver && !PauseMenu.isGamePaused)
         {
             nextEventTimer -= Time.deltaTime;
             if (nextEventTimer <= 0f)
@@ -83,15 +97,50 @@ public class GameMode : MonoBehaviour
         player.ToggleO2(toggle);
     }
 
+    public void SetO2Multiplier(int multiplier)
+    {
+        player.SetO2Multiplier(multiplier);
+    }
+
+    public void RefillO2()
+    {
+        player.RefillO2();
+    }
+
+    public string GetHullIntegrity()
+    {
+        return $"({hullCurrentIntegrity}/{hullMaxIntegrity}";
+    }
+
+    public string GetStatusReport()
+    {
+        string result = string.Empty;
+
+        foreach (BreakableComponent b in shipComponents)
+        {
+            string status = b.IsActive() ? "Bad" : "OK";
+            result += $"{b.componentName} - Status: {status}\n";
+        }
+
+        return result;
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.Pause();
+    }
+
     public void GameOver()
     {
+        if (audioManager)
+            audioManager.Play("GameOver");
         gameOver = true;
         // Change player movementSpeed to 0 to prevent input when game is over
         player.movementSpeed = 0f;
+        playerHud.SetActive(false);
         gameOverPanel.SetActive(true);
         Debug.Log(timeStarted);
         int seconds = (int)((Time.time - timeStarted) % 60);
         result.text = $"You have survived for {seconds} seconds";
-        Debug.Log("Game Over!!!");
     }
 }

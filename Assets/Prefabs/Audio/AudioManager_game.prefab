@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &857619457703163058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857619457703163056}
+  - component: {fileID: 857619457703163057}
+  m_Layer: 0
+  m_Name: AudioManager_game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &857619457703163056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857619457703163058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2877893, y: -0.4409504, z: -825.17816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &857619457703163057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857619457703163058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8569d82ac83a2f4bbc89342e19ca550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: PlayerSteps
+    clip: {fileID: 8300000, guid: b7916d8c4ceed0947b47f6318a289dc7, type: 3}
+    volume: 0.533
+    loop: 1
+    source: {fileID: 0}
+  - name: Drill
+    clip: {fileID: 8300000, guid: fb421c958edf81f45976d4fdcda82b2e, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Screwdriver
+    clip: {fileID: 8300000, guid: ebc8f47348b160f42b42e3f7474f33e7, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Wrench
+    clip: {fileID: 8300000, guid: 7af9159d250ae1a41ba052d4a96e6efe, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Medbay
+    clip: {fileID: 8300000, guid: c2704928b7e66064b811c13db510d200, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: O2
+    clip: {fileID: 8300000, guid: d03ce014f1b1dcf45b7d39aa7318aaf0, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: O2Refill
+    clip: {fileID: 8300000, guid: 892bc03402bc80f46b6aa48e4d7b0865, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shield
+    clip: {fileID: 8300000, guid: 31bf4602d0de11d4a892bd0d240c4858, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Gravity
+    clip: {fileID: 8300000, guid: 5f9dd15822a528945a62d9e47341b4d0, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hull
+    clip: {fileID: 8300000, guid: f68a7dad07b2dca44b687131442993e9, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GameOver
+    clip: {fileID: 8300000, guid: 92389e0791777cb458b0f1ad83b1461b, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Background
+    clip: {fileID: 8300000, guid: 885b9b265ac15604fb2c8d4a46c3c671, type: 3}
+    volume: 0.12
+    loop: 1
+    source: {fileID: 0}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: 6894a7e2094cfaf4c85bd1b3682aefb6, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ToolboxClose
+    clip: {fileID: 8300000, guid: 076139874431ea843a4788619092b796, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ToolboxOpen
+    clip: {fileID: 8300000, guid: dd7ac381d9db65a429afaa61d22390e9, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PauseSound
+    clip: {fileID: 8300000, guid: 6f618dce0baccd544a4fa0b12334191d, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
