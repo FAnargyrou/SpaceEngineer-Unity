@@ -5,7 +5,7 @@
 public class Item : ScriptableObject
 {
     [SerializeField]
-    Sprite icon;
+    Sprite icon = null;
 
     public Sprite GetIcon()
     {

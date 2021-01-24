@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     public float interactRadius = 5f;
     public LayerMask shipComponentsMasks;
     public Inventory inventory;
+    public ProgressBar progressBar;
 
     Rigidbody2D rb;
     Animator animator;
+    ShipComponent focus;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
             Debug.LogWarning($"{name} does not have a RigidBody2D component");
         if (!animator)
             Debug.LogWarning($"{name} does not have an Animator component");
+        progressBar.gameObject.SetActive(false);
     }
 
     void Update()
@@ -28,6 +31,29 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Interact();
+        }
+
+        // If Player is interacting with a ShipComponent object
+        if (focus)
+        {
+            BreakableComponent breakable = focus.GetComponent<BreakableComponent>();
+            if (breakable)
+            {
+                float progress = breakable.GetProgress();
+                progressBar.SetProgress(progress);
+            }
+
+            // Check if it's too far away and cancel current progress
+            if (Vector2.Distance(focus.transform.position, transform.position) > 1f)
+            {
+                if (breakable)
+                {
+                    progressBar.SetProgress(0f);
+                    progressBar.gameObject.SetActive(false);
+                }
+                focus.Cancel();
+                focus = null;
+            }
         }
     }
 
@@ -63,7 +89,11 @@ public class Player : MonoBehaviour
             return;
         }
 
-        shipComponent.Fix();
+        shipComponent.Interact();
+        BreakableComponent breakable = shipComponent.GetComponent<BreakableComponent>();
+        if (breakable)
+            progressBar.gameObject.SetActive(true);
+        focus = shipComponent;
     }
 
     private void OnDrawGizmosSelected()

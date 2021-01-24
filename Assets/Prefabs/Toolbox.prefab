@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6363403477305684639}
   - component: {fileID: 4091013496016975142}
   - component: {fileID: 6578520000401102441}
-  m_Layer: 0
+  - component: {fileID: 6308270859794899618}
+  m_Layer: 8
   m_Name: Toolbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7477116942032994148, guid: 146fc92bfd491ce46bbd6b4de9205857, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,3 +96,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce6127b60c17984ab2bbbfde8761c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  componentName: Toolbox Component
+  requiredItem: {fileID: 0}
+  toolboxHUD: {fileID: 0}
+  inventoryHUD: {fileID: 0}
+--- !u!61 &6308270859794899618
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7945669600895974730}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.0003126, y: 1.0003126}
+    newSize: {x: 1.0003126, y: 1.0003126}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0003126, y: 1.0003126}
+  m_EdgeRadius: 0

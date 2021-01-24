@@ -5,13 +5,13 @@ using TMPro;
 
 public class ComponentsTracker : MonoBehaviour
 {
-    ShipComponent[] _shipComponents;
+    BreakableComponent[] _shipComponents;
     TMP_Text _textMesh;
 
     // Start is called before the first frame update
     void Start()
     {
-        _shipComponents = FindObjectsOfType<ShipComponent>();
+        _shipComponents = FindObjectsOfType<BreakableComponent>();
         _textMesh = GetComponent<TMP_Text>();
         if (_textMesh == null)
         {
@@ -28,9 +28,10 @@ public class ComponentsTracker : MonoBehaviour
     void Update()
     {
         _textMesh.text = "Components to be Fixed:\n";
-        foreach (ShipComponent component in _shipComponents)
+        foreach (BreakableComponent component in _shipComponents)
         {
-            _textMesh.text += $"{component.componentName} - {component.GetCurrentTimer().ToString("0")}s";
+            if (component.IsActive())
+                _textMesh.text += $"{component.componentName} - {component.GetCurrentTimer().ToString("0")}s\n";
         }
     }
 }

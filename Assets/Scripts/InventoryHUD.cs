@@ -6,6 +6,8 @@ public class InventoryHUD : MonoBehaviour
 {
     public Inventory inventory;
 
+    public bool defaultActive = true;
+
     InventorySlot[] slots;
 
     // Start is called before the first frame update
@@ -16,9 +18,10 @@ public class InventoryHUD : MonoBehaviour
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = GetComponentsInChildren<InventorySlot>();
-        Debug.Log($"Length={slots.Length}");
+        Debug.Log("Starting");
 
         CreateUI();
+        gameObject.SetActive(defaultActive);
     }
 
     // Update is called once per frame
@@ -49,6 +52,18 @@ public class InventoryHUD : MonoBehaviour
             else
             {
                 slots[i].ClearSlot();
+            }
+        }
+    }
+
+    public void ToggleButtons(bool toggle)
+    {
+        Debug.Log(slots.Length);
+        for (int i = 0; i < slots.Length; ++i)
+        {
+            if (i < inventory.items.Count)
+            {
+                slots[i].ToggleButton(toggle);
             }
         }
     }

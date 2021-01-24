@@ -19,8 +19,6 @@ public class InventorySlot : MonoBehaviour
         _item = item;
         icon.sprite = item.GetIcon();
         icon.enabled = true;
-        Debug.Log(name);
-        button.interactable = true;
     }
 
     public void ClearSlot()
@@ -29,6 +27,12 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = null;
         icon.enabled = false;
         button.interactable = false;
+    }
+
+    public void ToggleButton(bool toggle)
+    {
+        if (_item)
+            button.interactable = toggle;
     }
 
     public void DepositItem()
