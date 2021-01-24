@@ -14,7 +14,7 @@ public abstract class ShipComponent : MonoBehaviour
     public abstract void Interact();
     public abstract void Cancel();
     public float GetCurrentTimer() { return currentTimer; }
-    public void Start()
+    virtual protected void Start()
     {
         gameMode = FindObjectOfType<GameMode>();
     }

@@ -31,7 +31,7 @@ public class ComponentsTracker : MonoBehaviour
         foreach (BreakableComponent component in _shipComponents)
         {
             if (component.IsActive())
-                _textMesh.text += $"{component.componentName} - {component.GetCurrentTimer().ToString("0")}s\n";
+                _textMesh.text += $"{component.GetDescription()}";
         }
     }
 }

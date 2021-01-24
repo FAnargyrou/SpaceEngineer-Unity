@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ToolboxComponent : ShipComponent
 {
-    // List of available items to be picked up
-    List<Item> items;
     public InventoryHUD toolboxHUD;
     public InventoryHUD inventoryHUD;
 

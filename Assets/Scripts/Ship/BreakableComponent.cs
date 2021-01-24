@@ -2,18 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableComponent : ShipComponent
+public abstract class BreakableComponent : ShipComponent
 {
-    bool active;
+    protected bool active;
     bool isFixing;
 
     public float fixRequired = 100f;
+    // Some ship components should allow the player to walk over them if not broken (ie. Hull/Floor)
+    public bool collidable = true;
     float fixProgress = 0f;
 
-    public void ActivateEvent()
+    Sprite defaultSprite;
+    public Sprite brokenSprite;
+
+    protected override void Start()
+    {
+        base.Start();
+        defaultSprite = GetComponent<SpriteRenderer>().sprite;
+        if (!collidable)
+            GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    protected void EventLoop()
+    {
+        if (active)
+        {
+            if (isFixing)
+            {
+                Debug.Log(fixProgress);
+                fixProgress = Mathf.Clamp(fixProgress + Time.deltaTime * 10f, 0f, fixRequired);
+                if (fixProgress >= fixRequired)
+                {
+                    DisableEvent();
+                }
+            }
+
+            currentTimer = Mathf.Clamp(currentTimer - Time.deltaTime, 0f, timer);
+            if (currentTimer <= 0f)
+                Debug.Log("Player failed to disarm");
+        }
+    }
+
+    public virtual void ActivateEvent()
     {
         active = true;
         currentTimer = timer;
+        if (brokenSprite)
+        {
+            GetComponent<SpriteRenderer>().sprite = brokenSprite;
+            if (!collidable)
+                GetComponent<BoxCollider2D>().enabled = true;
+        }
+    }
+
+    public virtual void DisableEvent()
+    {
+        active = false;
+        if (brokenSprite)
+            GetComponent<SpriteRenderer>().sprite = defaultSprite;
+        if (!collidable)
+            GetComponent<BoxCollider2D>().enabled = false;
+
     }
 
     public bool IsActive()
@@ -38,22 +87,5 @@ public class BreakableComponent : ShipComponent
             isFixing = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (active)
-        {
-            if (isFixing)
-            {
-                Debug.Log(fixProgress);
-                fixProgress = Mathf.Clamp(fixProgress + Time.deltaTime * 10f, 0f, fixRequired);
-                if (fixProgress >= fixRequired)
-                    active = false;
-            }
-
-            currentTimer = Mathf.Clamp(currentTimer - Time.deltaTime, 0f, timer);
-            if (currentTimer <= 0f)
-                Debug.Log("Player failed to disarm");
-        }
-    }
+    public abstract string GetDescription();
 }

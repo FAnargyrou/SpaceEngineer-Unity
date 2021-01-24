@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     ShipComponent focus;
+    bool gravity = true;
 
     // Start is called before the first frame update
     void Start()
@@ -61,9 +62,19 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 movement;
-        movement.x = Input.GetAxis("Horizontal") * movementSpeed;
-        movement.y = Input.GetAxis("Vertical") * movementSpeed;
-        rb.velocity = new Vector2(movement.x, movement.y);
+        movement.x = Input.GetAxis("Horizontal");
+        movement.y = Input.GetAxis("Vertical");
+            
+        if (gravity)
+            rb.velocity = new Vector2(movement.x * movementSpeed, movement.y * movementSpeed);
+        else
+        {
+            Vector2 currentVelocity = rb.velocity;
+            currentVelocity.x += Time.deltaTime * movement.x;
+            currentVelocity.y += Time.deltaTime * movement.y;
+            rb.velocity = currentVelocity;
+
+        }
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
@@ -94,6 +105,11 @@ public class Player : MonoBehaviour
         if (breakable)
             progressBar.gameObject.SetActive(true);
         focus = shipComponent;
+    }
+
+    public void ToggleGravity(bool toggle)
+    {
+        gravity = toggle;
     }
 
     private void OnDrawGizmosSelected()
