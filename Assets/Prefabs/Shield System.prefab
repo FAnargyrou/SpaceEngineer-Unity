@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   componentName: Shield System
+  interactSound: Screwdriver
+  eventSound: Shield
   requiredItem: {fileID: 11400000, guid: c815845b6d6c785439a7e4ae9003b82d, type: 2}
   fixRequired: 50
   collidable: 1

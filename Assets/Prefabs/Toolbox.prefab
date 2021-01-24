@@ -98,9 +98,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   componentName: Toolbox Component
+  interactSound: ToolboxOpen
+  eventSound: 
   requiredItem: {fileID: 0}
   toolboxHUD: {fileID: 0}
   inventoryHUD: {fileID: 0}
+  toolboxCloseSound: ToolboxClose
 --- !u!61 &6308270859794899618
 BoxCollider2D:
   m_ObjectHideFlags: 0

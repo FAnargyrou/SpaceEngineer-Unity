@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class O2System : BreakableComponent
 {
+    static int brokenO2Count = 0;
+
     // Update is called once per frame
     void Update()
     {
@@ -14,13 +16,19 @@ public class O2System : BreakableComponent
     {
         base.ActivateEvent();
 
+        brokenO2Count++;
         gameMode.ToggleO2(false);
+        gameMode.SetO2Multiplier(brokenO2Count);
     }
 
     public override void DisableEvent()
     {
         base.DisableEvent();
-        gameMode.ToggleO2(true);
+
+        brokenO2Count--;
+        if (brokenO2Count <= 0)
+            gameMode.ToggleO2(true);
+        gameMode.SetO2Multiplier(brokenO2Count);
     }
 
     public override string GetDescription()

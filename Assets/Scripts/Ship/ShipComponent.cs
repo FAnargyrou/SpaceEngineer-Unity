@@ -6,6 +6,8 @@ public abstract class ShipComponent : MonoBehaviour
 {
     public float timer = 0f;
     public string componentName;
+    public string interactSound;
+    public string eventSound;
     public Item requiredItem;
 
     protected GameMode gameMode;
@@ -17,5 +19,13 @@ public abstract class ShipComponent : MonoBehaviour
     virtual protected void Start()
     {
         gameMode = FindObjectOfType<GameMode>();
+    }
+    // Helper function for child classes to avoid code duplication
+    protected void PlaySound(string soundName)
+    {
+        if (gameMode && gameMode.audioManager && !string.IsNullOrEmpty(interactSound))
+        {
+            gameMode.audioManager.Play(soundName);
+        }
     }
 }

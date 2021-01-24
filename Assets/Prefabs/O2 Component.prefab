@@ -146,7 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   componentName: 
+  interactSound: Screwdriver
+  eventSound: O2
   requiredItem: {fileID: 11400000, guid: 59d947453274b2c439eda3c8ec1d70ed, type: 2}
   fixRequired: 30
   collidable: 1
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: -1762573714345474896, guid: eb51198e529bf9c4482d6a03674384f2, type: 3}
