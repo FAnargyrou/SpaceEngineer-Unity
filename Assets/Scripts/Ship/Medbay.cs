@@ -8,7 +8,7 @@ public class Medbay : BreakableComponent
 
     public override string GetDescription()
     {
-        return "";
+        return "Medbay Failure\n";
     }
 
     // Update is called once per frame

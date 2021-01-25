@@ -25,6 +25,6 @@ public class ShieldSystem : BreakableComponent
 
     public override string GetDescription()
     {
-        return $"{componentName} is down";
+        return $"{componentName} is down\n";
     }
 }

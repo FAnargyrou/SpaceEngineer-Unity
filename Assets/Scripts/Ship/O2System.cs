@@ -33,7 +33,7 @@ public class O2System : BreakableComponent
 
     public override string GetDescription()
     {
-        return "O2 Flow is clogged; New filter required";
+        return "O2 Flow is clogged; New filter required\n";
     }
 
 }

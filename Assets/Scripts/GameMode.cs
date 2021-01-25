@@ -16,7 +16,7 @@ public class GameMode : MonoBehaviour
     public float minEventTimer = 5f;
     public float maxEventTimer = 15f;
     float nextEventTimer = 0f;
-    float timeStarted;
+    float timeLapsed;
     BreakableComponent[] shipComponents;
     bool gameOver = false;
     bool shieldActive = true;
@@ -27,14 +27,12 @@ public class GameMode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeStarted = Time.time;
+        timeLapsed = 0f;
 
         shipComponents = FindObjectsOfType<BreakableComponent>();
 
         playerInventory.items.Clear();
         toolboxInventory.items.Clear();
-
-        GenerateRandomEvent();
 
         nextEventTimer = Random.Range(minEventTimer, maxEventTimer);
 
@@ -57,6 +55,7 @@ public class GameMode : MonoBehaviour
 
         if (!gameOver && !PauseMenu.isGamePaused)
         {
+			timeLapsed += Time.time;
             nextEventTimer -= Time.deltaTime;
             if (nextEventTimer <= 0f)
             {
@@ -66,7 +65,7 @@ public class GameMode : MonoBehaviour
                 nextEventTimer = Random.Range(minEventTimer, maxEventTimer);
             }
 
-            if (player.o2Current <= 0f)
+            if (player.o2Current <= 0f || hullCurrentIntegrity <= 0)
                 GameOver();
         }
     }
@@ -109,8 +108,18 @@ public class GameMode : MonoBehaviour
 
     public string GetHullIntegrity()
     {
-        return $"({hullCurrentIntegrity}/{hullMaxIntegrity}";
+        return $"({hullCurrentIntegrity}/{hullMaxIntegrity})";
     }
+	
+	public void AddIntegrity()
+	{
+		hullCurrentIntegrity++;
+	}
+	
+	public void RemoveIntegrity()
+	{
+		hullCurrentIntegrity--;
+	}
 
     public string GetStatusReport()
     {
@@ -137,10 +146,9 @@ public class GameMode : MonoBehaviour
         gameOver = true;
         // Change player movementSpeed to 0 to prevent input when game is over
         player.movementSpeed = 0f;
-        playerHud.SetActive(false);
         gameOverPanel.SetActive(true);
-        Debug.Log(timeStarted);
-        int seconds = (int)((Time.time - timeStarted) % 60);
+        Debug.Log(timeLapsed);
+        int seconds = (int)(timeLapsed % 60);
         result.text = $"You have survived for {seconds} seconds";
     }
 }

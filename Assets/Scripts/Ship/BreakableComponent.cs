@@ -36,16 +36,12 @@ public abstract class BreakableComponent : ShipComponent
                 }
             }
 
-            currentTimer = Mathf.Clamp(currentTimer - Time.deltaTime, 0f, timer);
-            if (currentTimer <= 0f)
-                Debug.Log("Player failed to disarm");
         }
     }
 
     public virtual void ActivateEvent()
     {
         active = true;
-        currentTimer = timer;
         if (brokenSprite)
         {
             GetComponent<SpriteRenderer>().sprite = brokenSprite;
@@ -53,6 +49,7 @@ public abstract class BreakableComponent : ShipComponent
                 GetComponent<BoxCollider2D>().enabled = true;
         }
         PlaySound(eventSound);
+		gameMode.RemoveIntegrity();
     }
 
     public virtual void DisableEvent()
@@ -62,6 +59,7 @@ public abstract class BreakableComponent : ShipComponent
             GetComponent<SpriteRenderer>().sprite = defaultSprite;
         if (!collidable)
             GetComponent<BoxCollider2D>().enabled = false;
+		gameMode.AddIntegrity();
 
     }
 

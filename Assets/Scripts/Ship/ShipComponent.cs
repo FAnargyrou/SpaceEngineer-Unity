@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class ShipComponent : MonoBehaviour
 {
-    public float timer = 0f;
     public string componentName;
     public string interactSound;
     public string eventSound;
@@ -12,10 +11,8 @@ public abstract class ShipComponent : MonoBehaviour
 
     protected GameMode gameMode;
 
-    protected float currentTimer;
     public abstract void Interact();
     public abstract void Cancel();
-    public float GetCurrentTimer() { return currentTimer; }
     virtual protected void Start()
     {
         gameMode = FindObjectOfType<GameMode>();

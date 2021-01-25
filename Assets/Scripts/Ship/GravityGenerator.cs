@@ -26,6 +26,6 @@ public class GravityGenerator : BreakableComponent
 
     public override string GetDescription()
     {
-        return $"{componentName} Failure";
+        return $"{componentName} Failure\n";
     }
 }
